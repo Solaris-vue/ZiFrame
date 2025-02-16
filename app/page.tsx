@@ -1,45 +1,46 @@
-import { getFrameMetadata } from '@coinbase/onchainkit';
+import { getFrameMetadata } from '@coinbase/onchainkit/frame';
 import type { Metadata } from 'next';
+import { NEXT_PUBLIC_URL } from './config';
 
-const NEXT_PUBLIC_URL = 'https://fungiframev1-f6afg3uyi-david-mccullys-projects.vercel.app';
+const frameMetadata = getFrameMetadata({
+  buttons: [
+    {
+      label: 'Story time',
+    },
+    {
+      action: 'tx',
+      label: 'Send Base Sepolia',
+      target: `${NEXT_PUBLIC_URL}/api/tx`,
+      postUrl: `${NEXT_PUBLIC_URL}/api/tx-success`,
+    },
+  ],
+  image: {
+    src: `${NEXT_PUBLIC_URL}/park-3.png`,
+    aspectRatio: '1:1',
+  },
+  input: {
+    text: 'Tell me a story',
+  },
+  postUrl: `${NEXT_PUBLIC_URL}/api/frame`,
+});
 
-export async function generateMetadata(): Promise<Metadata> {
-  const frameMetadata = getFrameMetadata({
-    buttons: [
-      {
-        label: 'Visit Fungi',
-        action: 'link',
-        target: 'https://fungifungi.art'
-      }
-    ],
-    image: {
-      src: `${NEXT_PUBLIC_URL}/fungi-image.png`,
-      aspectRatio: '1:1'
-    },
-    input: {
-      text: 'Enter your wallet address'
-    }
-  });
-
-  return {
-    title: 'Fungi Frame',
-    description: 'A Farcaster frame for fungifungi.art',
-    openGraph: {
-      title: 'Fungi Frame',
-      description: 'A Farcaster frame for fungifungi.art',
-      images: [`${NEXT_PUBLIC_URL}/fungi-image.png`],
-    },
-    other: {
-      ...frameMetadata,
-    },
-  };
-}
+export const metadata: Metadata = {
+  title: 'zizzamia.xyz',
+  description: 'LFG',
+  openGraph: {
+    title: 'zizzamia.xyz',
+    description: 'LFG',
+    images: [`${NEXT_PUBLIC_URL}/park-1.png`],
+  },
+  other: {
+    ...frameMetadata,
+  },
+};
 
 export default function Page() {
   return (
-    <div>
-      <h1>Fungi Frame</h1>
-      <p>This is a Farcaster frame for fungifungi.art</p>
-    </div>
+    <>
+      <h1>zizzamia.xyz</h1>
+    </>
   );
 }
